@@ -7,7 +7,7 @@ import os
 import getpass
 import time
 
-WORDLIST = "/usr/share/wordlists//demo-wordlist-1k.txt"
+WORDLIST = "/usr/share/wordlists/demo-wordlist-1k.txt"
 SALT = "club123"
 PASSFILE = "student_passwd.txt"
 TEMPFILE = "temp_passwd.txt"
