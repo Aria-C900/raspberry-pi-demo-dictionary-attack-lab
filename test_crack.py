@@ -62,8 +62,6 @@ try:
 except FileNotFoundError:
     pass
 
-input("\n Press Enter to try another password.")
-
 ### end of new
 while True:
     run_cracker()
