@@ -42,11 +42,11 @@ def run_cracker():
     loading_animation("Cracking", 5)
 
 # CRACK (options first, then file; add format for $6$ hashes)
-result = subprocess.run(
-    ["john", f"--wordlist={WORDLIST}", TEMPFILE],
-    stdout=subprocess.PIPE,
-    stderr=subprocess.PIPE
-)
+    result = subprocess.run(
+        ["john", f"--wordlist={WORDLIST}", TEMPFILE],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+    )
     output=subprocess.check_output(["john", "--show", TEMPFILE]).decode()
 
 line = next((ln for ln in output.splitlines() if ln.startswith("student:")), None)
