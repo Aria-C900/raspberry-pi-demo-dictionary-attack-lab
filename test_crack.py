@@ -28,10 +28,12 @@ def run_cracker():
 
 # ENTER PASSWORD
     print("\n Hashing your password...")
-    hashed_pw = subprocess.check_output(["openssl", "passwd", "-1", "-salt", SALT, password]).decode().strip()
+    hashed_pw = subprocess.check_output(
+        ["openssl", "passwd", "-1", "-salt", SALT, password]
+    ).decode().strip()
 # NOTE: Depending on your version of Johntheripper, you may be able to change the "-1" to different hashes, 
 # such as -6 to change to sha512crypt
-  
+
     with open(PASSFILE, "w") as f:
         f.write(f"student:{hashed_pw}\n")
 
@@ -47,20 +49,22 @@ def run_cracker():
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )
+    
     output=subprocess.check_output(["john", "--show", TEMPFILE]).decode()
 
-line = next((ln for ln in output.splitlines() if ln.startswith("student:")), None)
-if line:
-    cracked_pw = line.split(":", 1)[1]
-    print(f"Cracked! Password was: {cracked_pw}")
-else:
-    print("Too strong! This password wasn’t in the list.")
+    line = next((ln for ln in output.splitlines() if ln.startswith("student:")), None)
+
+    if line:
+        cracked_pw = line.split(":", 1)[1]
+        print(f"Cracked! Password was: {cracked_pw}")
+    else:
+        print("Too strong! This password wasn’t in the list.")
 
 # clean only the temp file; keep your PASSFILE history
-try:
-    os.remove(TEMPFILE)
-except FileNotFoundError:
-    pass
+    try:
+        os.remove(TEMPFILE)
+    except FileNotFoundError:
+        pass
 
 ### end of new
 while True:
